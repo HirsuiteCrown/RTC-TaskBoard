@@ -28,8 +28,8 @@ const Column = ({ column }) => {
   };
 
   return (
-    <div className="bg-gray-100 p-4 rounded-lg w-72 flex-shrink-0">
-      <div className="flex items-center justify-between mb-3">
+    <div className="bg-gray-800 p-4 rounded-xl w-80 flex-shrink-0 shadow-lg border border-gray-700">
+      <div className="flex items-center justify-between mb-4">
         {isEditing ? (
           <input
             type="text"
@@ -37,12 +37,12 @@ const Column = ({ column }) => {
             onChange={(e) => setTitle(e.target.value)}
             onBlur={handleTitleSave}
             onKeyPress={(e) => e.key === 'Enter' && handleTitleSave()}
-            className="font-semibold bg-transparent border-b border-gray-400 focus:outline-none"
+            className="font-semibold bg-gray-700 text-white border-b border-gray-500 focus:outline-none focus:border-blue-500 w-full"
             autoFocus
           />
         ) : (
-          <h3 
-            className="font-semibold cursor-pointer hover:text-blue-600"
+          <h3
+            className="font-semibold text-white cursor-pointer hover:text-blue-400 transition-colors"
             onClick={() => setIsEditing(true)}
           >
             {column.title}
@@ -50,25 +50,25 @@ const Column = ({ column }) => {
         )}
         <button
           onClick={() => deleteColumn(column.id)}
-          className="text-gray-400 hover:text-red-500"
+          className="text-gray-400 hover:text-red-400 p-1 rounded-full hover:bg-gray-700 transition-colors"
         >
           <Trash2 size={16} />
         </button>
       </div>
 
-      <div 
+      <div
         ref={setNodeRef}
-        className={`min-h-[100px] rounded-lg transition-colors ${
-          isOver ? 'bg-blue-100 border-2 border-blue-300 border-dashed' : ''
+        className={`min-h-[100px] rounded-lg transition-all duration-200 ${
+          isOver ? 'bg-gray-700 border-2 border-dashed border-blue-400' : 'bg-gray-700/50'
         }`}
       >
         <SortableContext items={column.tasks.map(task => task.id)} strategy={verticalListSortingStrategy}>
-          <div className="space-y-2 mb-3">
+          <div className="space-y-3 mb-3 p-1">
             {column.tasks.map(task => (
               <Task key={task.id} task={task} columnId={column.id} />
             ))}
             {column.tasks.length === 0 && (
-              <div className="text-gray-400 text-sm text-center py-4">
+              <div className="text-gray-500 text-sm text-center py-6">
                 Drop tasks here
               </div>
             )}
@@ -78,10 +78,10 @@ const Column = ({ column }) => {
 
       <button
         onClick={() => setShowTaskModal(true)}
-        className="w-full p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-200 rounded flex items-center justify-center gap-1 transition-colors"
+        className="w-full p-3 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg flex items-center justify-center gap-2 transition-all duration-200 mt-2"
       >
         <Plus size={16} />
-        Add a task
+        <span>Add a task</span>
       </button>
 
       {showTaskModal && (
