@@ -114,9 +114,12 @@ export const BoardProvider = ({ children }) => {
     const activeTask = activeColumn.tasks.find(task => task.id === activeId);
     
     if (activeColumn.id === overColumn.id) {
-      // Reordering within same column
       const oldIndex = activeColumn.tasks.findIndex(task => task.id === activeId);
       const newIndex = overColumn.tasks.findIndex(task => task.id === overId);
+      
+      if (newIndex === -1) {
+        return;
+      }
       
       setColumns(columns.map(col => 
         col.id === activeColumn.id 
@@ -124,7 +127,6 @@ export const BoardProvider = ({ children }) => {
           : col
       ));
     } else {
-      // Moving between columns
       setColumns(columns.map(col => {
         if (col.id === activeColumn.id) {
           return { ...col, tasks: col.tasks.filter(task => task.id !== activeId) };

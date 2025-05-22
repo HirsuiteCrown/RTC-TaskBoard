@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { useDroppable } from '@dnd-kit/core';
 import { Plus, Trash2 } from 'lucide-react';
 import { useBoardContext } from '../context/BoardContext';
 import Task from './Task';
@@ -10,6 +11,10 @@ const Column = ({ column }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(column.title);
   const [showTaskModal, setShowTaskModal] = useState(false);
+
+  const { setNodeRef, isOver } = useDroppable({
+    id: column.id,
+  });
 
   const handleTitleSave = () => {
     if (title.trim()) {
@@ -51,13 +56,25 @@ const Column = ({ column }) => {
         </button>
       </div>
 
-      <SortableContext items={column.tasks.map(task => task.id)} strategy={verticalListSortingStrategy}>
-        <div className="space-y-2 mb-3">
-          {column.tasks.map(task => (
-            <Task key={task.id} task={task} columnId={column.id} />
-          ))}
-        </div>
-      </SortableContext>
+      <div 
+        ref={setNodeRef}
+        className={`min-h-[100px] rounded-lg transition-colors ${
+          isOver ? 'bg-blue-100 border-2 border-blue-300 border-dashed' : ''
+        }`}
+      >
+        <SortableContext items={column.tasks.map(task => task.id)} strategy={verticalListSortingStrategy}>
+          <div className="space-y-2 mb-3">
+            {column.tasks.map(task => (
+              <Task key={task.id} task={task} columnId={column.id} />
+            ))}
+            {column.tasks.length === 0 && (
+              <div className="text-gray-400 text-sm text-center py-4">
+                Drop tasks here
+              </div>
+            )}
+          </div>
+        </SortableContext>
+      </div>
 
       <button
         onClick={() => setShowTaskModal(true)}
