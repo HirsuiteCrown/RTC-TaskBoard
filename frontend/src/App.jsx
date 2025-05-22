@@ -1,11 +1,13 @@
-import './App.css'
+import React from 'react';
+import { BoardProvider } from './context/BoardContext';
+import Board from './components/Board';
 
 function App() {
 
   return (
-    <>
-      <div className='bg-red-700'>hello world</div>
-    </>
+    <BoardProvider>
+      <Board />
+    </BoardProvider>
   )
 }
 
