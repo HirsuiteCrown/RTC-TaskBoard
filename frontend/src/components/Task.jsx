@@ -38,30 +38,35 @@ const Task = ({ task, columnId }) => {
         ref={setNodeRef}
         style={style}
         {...attributes}
-        {...listeners}
-        className="bg-white p-3 rounded shadow-sm border cursor-grab active:cursor-grabbing hover:shadow-md transition-shadow"
+        className="bg-white p-3 rounded shadow-sm border hover:shadow-md transition-shadow"
       >
         <div className="flex justify-between items-start">
-          <h4 className="font-medium text-sm">{task.title}</h4>
+          <div 
+            {...listeners}
+            className="flex-1 cursor-grab active:cursor-grabbing"
+          >
+            <h4 className="font-medium text-sm">{task.title}</h4>
+            {task.description && (
+              <p className="text-xs text-gray-600 mt-1">{task.description}</p>
+            )}
+            {task.comments.length > 0 && (
+              <div className="flex items-center mt-2 text-gray-500">
+                <MessageCircle size={12} />
+                <span className="text-xs ml-1">{task.comments.length}</span>
+              </div>
+            )}
+          </div>
           <button
             onClick={(e) => {
               e.stopPropagation();
+              e.preventDefault();
               setShowModal(true);
             }}
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 hover:text-gray-600 p-1 rounded hover:bg-gray-100 flex-shrink-0"
           >
             <Edit2 size={14} />
           </button>
         </div>
-        {task.description && (
-          <p className="text-xs text-gray-600 mt-1">{task.description}</p>
-        )}
-        {task.comments.length > 0 && (
-          <div className="flex items-center mt-2 text-gray-500">
-            <MessageCircle size={12} />
-            <span className="text-xs ml-1">{task.comments.length}</span>
-          </div>
-        )}
       </div>
       
       {showModal && (

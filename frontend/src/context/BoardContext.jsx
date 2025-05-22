@@ -13,26 +13,7 @@ export const useBoardContext = () => {
 
 export const BoardProvider = ({ children }) => {
   const [columns, setColumns] = useState([
-    {
-      id: 'col-1',
-      title: 'To Do',
-      tasks: [
-        { id: 'task-1', title: 'Task 1', description: 'Description for task 1', comments: [] },
-        { id: 'task-2', title: 'Task 2', description: 'Description for task 2', comments: [] }
-      ]
-    },
-    {
-      id: 'col-2',
-      title: 'In Progress',
-      tasks: [
-        { id: 'task-3', title: 'Task 3', description: 'Description for task 3', comments: [] }
-      ]
-    },
-    {
-      id: 'col-3',
-      title: 'Done',
-      tasks: []
-    }
+
   ]);
 
   const addColumn = (title) => {
