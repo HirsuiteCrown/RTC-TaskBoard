@@ -38,7 +38,7 @@ const Board = () => {
     >
       <div className="p-6 min-h-screen bg-gradient-to-br from-gray-900 to-gray-800">
         <h1 className="text-3xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
-          My RTC- TaskBoard (By Aryan Dumyan)
+          My RTC- TaskBoard (By Aryan)
         </h1>
 
         <div className="flex gap-6 overflow-x-auto pb-6 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
