@@ -42,7 +42,7 @@ Start the server
 
 ## Tech Stack
 
-**Client:** React, Context, TailwindCSS
+**Client:** React, Context, TailwindCSS, dnd-kit
 
 ## Features
 
